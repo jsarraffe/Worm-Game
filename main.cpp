@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <string> 
 #include <curses.h>
 #include "getChar.hpp"
 #include <stdlib.h>
@@ -46,41 +47,53 @@ int main(int argc, char *argv[])
     auto headCell5 = new Cell(currRow, currCol - 5);
 
     int segmentsToAdd = 0;
-    auto munchie = screen->genRandomCell();
-    move(munchie->getRow(), munchie->getCol());
-    addch('7');
+    
 
     worm->Enqueue(headCell);
     worm->Enqueue(headCell1);
-    worm->Enqueue(headCell2);
-    worm->Enqueue(headCell3);
-    worm->Enqueue(headCell4);
-    worm->Enqueue(headCell5);
+    // worm->Enqueue(headCell2);
+    // worm->Enqueue(headCell3);
+    // worm->Enqueue(headCell4);
+    // worm->Enqueue(headCell5);
 
     screen->makeOccupied(headCell);
     screen->makeOccupied(headCell1);
-    screen->makeOccupied(headCell2);
-    screen->makeOccupied(headCell3);
-    screen->makeOccupied(headCell4);
-    screen->makeOccupied(headCell5);
+    // screen->makeOccupied(headCell2);
+    // screen->makeOccupied(headCell3);
+    // screen->makeOccupied(headCell4);
+    // screen->makeOccupied(headCell5);
 
     move(currRow, currCol);
     addch('@');
     move(currRow, currCol - 1);
     addch('o');
-    move(currRow, currCol - 2);
-    addch('o');
-    move(currRow, currCol - 3);
-    addch('o');
-    move(currRow, currCol - 4);
-    addch('o');
-    move(currRow, currCol - 5);
-    addch('o');
+    // move(currRow, currCol - 2);
+    // addch('o');
+    // move(currRow, currCol - 3);
+    // addch('o');
+    // move(currRow, currCol - 4);
+    // addch('o');
+    // move(currRow, currCol - 5);
+    // addch('o');
 
     refresh();
 
+
+
+
+        int ranNum = '0' + rand() % 10;
+        auto munchie = screen->genRandomCell();
+        move(munchie->getRow(), munchie->getCol());
+        screen->makeOccupied(munchie);
+        addch(ranNum);
+
+        
+     
+
     while (isAlive)
     {
+        
+         
         char nextC = inch();
         switch (get_char())
         {
@@ -112,7 +125,26 @@ int main(int argc, char *argv[])
         }
         if (!screen->isFree(currRow, currCol))
         {
-            isAlive = false;
+           if((munchie->getRow() != currRow && munchie->getCol() != currCol)){
+               isAlive = false;
+           } else{
+               move(munchie->getRow(), munchie->getCol());
+                addch(' ');
+               screen->makeFree(munchie);
+
+
+                int ranNum = '0' + (rand() % 10);
+                int ranInt = (rand() % 10);
+                munchie = screen->genRandomCell();
+                move(munchie->getRow(), munchie->getCol());
+                screen->makeOccupied(munchie);
+                addch(ranNum);
+                segmentsToAdd = ranInt;
+
+                
+
+           }
+            
         }
         else
         {
@@ -131,26 +163,23 @@ int main(int argc, char *argv[])
             screen->makeOccupied(headCell);
             addch('@');
 
-            if(headCell == munchie){
-                segmentsToAdd = 7;
-                isAlive = false;
-            }
 
             if (segmentsToAdd > 0)
-            {
-                 isAlive = false;
-
+            {   
+                
+                segmentsToAdd--;
+                
                 
             }
             else
             {
-
                 worm->Dequeue();
                 screen->makeFree(oldRear);
                 move(oldRear->getRow(), oldRear->getCol());
                 addch(' ');
             }
         }
+        
         refresh();
     }
     terminate();
@@ -172,4 +201,5 @@ void terminate(void)
     refresh();
     endwin();
 }
+
 

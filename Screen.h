@@ -21,16 +21,15 @@ public:
 
     Cell *genRandomCell();
 
-
     void displayScore();
 
-
     ~Screen();
+
 private:
     int numRows, numColumns;
-    std::vector<std::vector<int> > screen;
-    std::vector<Cell*> freePool;
+    std::vector<std::vector<int>> screen;
+    std::vector<Cell *> freePool;
     int lastIndex = 0;
-
+    int gameScore = 0;
 };
 #endif //SCREENEXAMPLE_SCREEN_H

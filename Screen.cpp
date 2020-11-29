@@ -76,6 +76,11 @@ Cell *Screen::genRandomCell()
     int cellNum = rand() % lastIndex;
     return freePool.at(cellNum);
 }
+
+
+
+
+
 bool Screen::isFree(int row, int column)
 {
     if (screen.at(row).at(column) == -1)
@@ -87,10 +92,16 @@ bool Screen::isFree(int row, int column)
 
 void Screen::displayScore()
 {
-
+     char disNum = '0' + gameScore;
     move(0, 3);
     addstr("Worm");
 
     move(0, numColumns - 12);
-    addstr("Score  0");
+
+    addstr("Score  ");
+    move(0,numColumns-6);
+    addch(disNum);
+
 }
+
+
