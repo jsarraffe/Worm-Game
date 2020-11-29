@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
     int currRow = numRows / 2;
     int currCol = numCols / 2;
     Screen *screen = new Screen(numRows, numCols);
+    screen->displayScore();
 
     Worm *worm = new Worm((numRows - 2) * (numCols - 2) - 1);
 
@@ -123,21 +124,23 @@ int main(int argc, char *argv[])
                 //only move it its not just the @ sign
                 mvaddch(oldHead->getRow(), oldHead->getCol(), 'o');
             }
-            if (munchie == new Cell(currRow, currCol))
-            {
-                segmentsToAdd = 7;
-            }
-
+           
             headCell = new Cell(currRow, currCol);
             move(currRow, currCol);
             worm->Enqueue(headCell);
             screen->makeOccupied(headCell);
             addch('@');
 
+            if(headCell == munchie){
+                segmentsToAdd = 7;
+                isAlive = false;
+            }
+
             if (segmentsToAdd > 0)
             {
+                 isAlive = false;
 
-                segmentsToAdd--;
+                
             }
             else
             {
@@ -169,3 +172,4 @@ void terminate(void)
     refresh();
     endwin();
 }
+

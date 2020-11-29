@@ -22,6 +22,9 @@ public:
     Cell *genRandomCell();
 
 
+    void displayScore();
+
+
     ~Screen();
 private:
     int numRows, numColumns;

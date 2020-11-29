@@ -12,12 +12,20 @@ Screen::Screen(int numRows, int numColumns) : numRows(numRows), numColumns(numCo
 {
     lastIndex = (numRows - 2) * (numColumns - 2) - 1;
     int cellNum = 0;
-    for (int i = 0; i < numRows; i++)
+    for (int i = 0; i < numRows + 1; i++)
     {
+
         std::vector<int> row;
         for (int j = 0; j < numColumns; j++)
         {
-            if (j == 0 || i == 0 || i == numRows - 1 || j == numColumns - 1)
+
+            if (i == 0)
+            {
+                mvaddch(i, j, ' ');
+                break;
+            }
+
+            if (j == 0 || i == 1 || i == numRows || j == numColumns - 1)
             {
                 row.push_back(-1);
                 mvaddch(i, j, '*');
@@ -35,7 +43,7 @@ Screen::Screen(int numRows, int numColumns) : numRows(numRows), numColumns(numCo
 }
 void Screen::makeFree(Cell *cell)
 {
-    if (isFree(cell->getRow(),cell->getCol()))
+    if (isFree(cell->getRow(), cell->getCol()))
     {
         std::cout << "Already is a free cell " << std::endl;
     }
@@ -51,7 +59,7 @@ void Screen::makeOccupied(Cell *cell)
 {
     int fpIndex = screen.at(cell->getRow()).at(cell->getCol());
 
-    if (!isFree(cell->getRow(),cell->getCol()))
+    if (!isFree(cell->getRow(), cell->getCol()))
     {
         std::cout << "Already is occupied" << std::endl;
     }
@@ -62,7 +70,8 @@ void Screen::makeOccupied(Cell *cell)
         lastIndex--;
     }
 }
-Cell *Screen::genRandomCell() {
+Cell *Screen::genRandomCell()
+{
 
     int cellNum = rand() % lastIndex;
     return freePool.at(cellNum);
@@ -76,3 +85,12 @@ bool Screen::isFree(int row, int column)
     return true;
 }
 
+void Screen::displayScore()
+{
+
+    move(0, 3);
+    addstr("Worm");
+
+    move(0, numColumns - 12);
+    addstr("Score  0");
+}
