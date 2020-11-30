@@ -72,14 +72,9 @@ void Screen::makeOccupied(Cell *cell)
 }
 Cell *Screen::genRandomCell()
 {
-
     int cellNum = rand() % lastIndex;
     return freePool.at(cellNum);
 }
-
-
-
-
 
 bool Screen::isFree(int row, int column)
 {

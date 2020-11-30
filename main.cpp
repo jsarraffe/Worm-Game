@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
         std::cout << "Error you need the fucking arguments dumbass" << std::endl;
         exit(1);
     }
-    int c;
     // change the seed for the time
     srand(time(NULL));
 
@@ -43,11 +42,11 @@ int main(int argc, char *argv[])
 
     auto headCell = new Cell(currRow, currCol);
 
-    auto headCell1 = new Cell(currRow, currCol - 1);
-    auto headCell2 = new Cell(currRow, currCol - 2);
-    auto headCell3 = new Cell(currRow, currCol - 3);
-    auto headCell4 = new Cell(currRow, currCol - 4);
-    auto headCell5 = new Cell(currRow, currCol - 5);
+    // auto headCell1 = new Cell(currRow, currCol - 1);
+    // auto headCell2 = new Cell(currRow, currCol - 2);
+    // auto headCell3 = new Cell(currRow, currCol - 3);
+    // auto headCell4 = new Cell(currRow, currCol - 4);
+    // auto headCell5 = new Cell(currRow, currCol - 5);
 
     int segmentsToAdd = 0;
     
@@ -81,7 +80,7 @@ int main(int argc, char *argv[])
 
    
 
-        int ranInt = rand() % 10;
+        int ranInt = (rand() % 9) + 1;
         int ranNum = '0' + ranInt;
 
         auto munchie = screen->genRandomCell();
@@ -94,7 +93,6 @@ int main(int argc, char *argv[])
  refresh();
     while (isAlive)
     {    
-        char nextC = inch();
         switch (get_char())
         {
 
@@ -129,8 +127,6 @@ int main(int argc, char *argv[])
            } else{
 
                screen->displayScore(ranInt);
-
-
                 auto oldHead = worm->getRear();
 
 
@@ -163,7 +159,7 @@ int main(int argc, char *argv[])
             
 
             screen->makeFree(munchie);
-                ranInt = rand() % 10;
+                ranInt = (rand() % 9) + 1;
                 ranNum = '0' + ranInt;
                 munchie = screen->genRandomCell();
                 move(munchie->getRow(), munchie->getCol());

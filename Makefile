@@ -1,27 +1,18 @@
-OBJS	= getChar.o main.o Screen.o Worm.o
-SOURCE	= getChar.cpp main.cpp Screen.cpp Worm.cpp
-HEADER	= Cell.h getChar.hpp Screen.h Worm.h
-OUT	= game.x
-CC	 = g++
-FLAGS	 = -g -c -gstabs -Wall
-LFLAGS	 = -lcurses -ltermcap
+game.x:  main.o Screen.o Screen.o Worm.o getChar.o
+	g++ -ggdb -o game.x main.o Screen.o Worm.o getChar.o -lcurses -ltermcap
 
-
-all: $(OBJS)
-	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS) 
-
-getChar.o: getChar.cpp
-	$(CC) $(FLAGS) getChar.cpp 
-
-main.o: main.cpp
-	$(CC) $(FLAGS) main.cpp 
+main.o:	main.cpp Screen.h Cell.h Worm.h
+	g++ -c -ggdb main.cpp -o main.o
 
 Screen.o: Screen.cpp
-	$(CC) $(FLAGS) Screen.cpp 
+	g++ -c -ggdb Screen.cpp -o Screen.o
 
-Worm.o: Worm.cpp
-	$(CC) $(FLAGS) Worm.cpp 
+Worm.o: Worm.cpp Cell.h
+	g++ -c -ggdb Worm.cpp -o Worm.o
 
+getChar.o: getChar.cpp 
+	gcc -c -ggdb getChar.cpp -o getChar.o
 
 clean:
-	rm -f $(OBJS) $(OUT)
+	/bin/rm -f game.x Screen.o main.o Cell.o Worm.o getChar.o *~
+	
