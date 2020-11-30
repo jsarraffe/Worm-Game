@@ -45,7 +45,7 @@ void Screen::makeFree(Cell *cell)
 {
     if (isFree(cell->getRow(), cell->getCol()))
     {
-        std::cout << "Already is a free cell " << std::endl;
+        return;
     }
     else
     {
@@ -61,7 +61,7 @@ void Screen::makeOccupied(Cell *cell)
 
     if (!isFree(cell->getRow(), cell->getCol()))
     {
-        std::cout << "Already is occupied" << std::endl;
+        return;
     }
     else
     {
@@ -90,9 +90,10 @@ bool Screen::isFree(int row, int column)
     return true;
 }
 
-void Screen::displayScore()
+void Screen::displayScore(int munchSize)
 {
-     char disNum = '0' + gameScore;
+    gameScore += munchSize;
+    std::string s = std::to_string(gameScore);
     move(0, 3);
     addstr("Worm");
 
@@ -100,7 +101,7 @@ void Screen::displayScore()
 
     addstr("Score  ");
     move(0,numColumns-6);
-    addch(disNum);
+    addstr(s.c_str());
 
 }
 
