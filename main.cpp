@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
     Worm *worm = new Worm((numRows - 2) * (numCols - 2) - 1);
 
     auto headCell = new Cell(currRow, currCol);
+    int currGameScore = 0;
 
     // auto headCell1 = new Cell(currRow, currCol - 1);
     // auto headCell2 = new Cell(currRow, currCol - 2);
@@ -99,20 +100,13 @@ int main(int argc, char *argv[])
         case 'j':
             currRow++;
             break;
-
         case 'l':
-
             currCol++;
             break;
-
         case 'h':
-
             currCol--;
-
             break;
-
         case 'k':
-
             currRow--;
 
             break;
@@ -126,7 +120,7 @@ int main(int argc, char *argv[])
                isAlive = false;
            } else{
 
-               screen->displayScore(ranInt);
+                screen->displayScore(ranInt);
                 auto oldHead = worm->getRear();
 
 
@@ -198,7 +192,14 @@ int main(int argc, char *argv[])
         
         refresh();
     }
+    
     terminate();
+
+    std::cout<<"The worm died since it ran into something!"<<std::endl;
+    std::cout<<"Your final score: "<<screen->getGameScore()<<std::endl;
+    delete screen;
+
+     
 }
 
 void startup(void)

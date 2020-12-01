@@ -21,6 +21,8 @@ public:
 
     Cell *genRandomCell();
 
+    int getGameScore(){return gameScore;}
+
     void displayScore(int munchSize);
 
     ~Screen();

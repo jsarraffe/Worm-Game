@@ -14,17 +14,14 @@ Screen::Screen(int numRows, int numColumns) : numRows(numRows), numColumns(numCo
     int cellNum = 0;
     for (int i = 0; i < numRows + 1; i++)
     {
-
         std::vector<int> row;
         for (int j = 0; j < numColumns; j++)
         {
-
             if (i == 0)
             {
                 mvaddch(i, j, ' ');
                 break;
             }
-
             if (j == 0 || i == 1 || i == numRows || j == numColumns - 1)
             {
                 row.push_back(-1);
@@ -100,4 +97,10 @@ void Screen::displayScore(int munchSize)
 
 }
 
+Screen::~Screen(){
+
+    for(int i = 0; i < freePool.size(); i++){
+        delete freePool.at(i);
+    }
+}
 
