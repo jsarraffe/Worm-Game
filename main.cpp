@@ -36,12 +36,13 @@ int main(int argc, char *argv[])
     int currRow = numRows / 2;
     int currCol = numCols / 2;
     Screen *screen = new Screen(numRows, numCols);
-    screen->displayScore(0);
+    
 
     Worm *worm = new Worm((numRows - 2) * (numCols - 2) - 1);
 
     auto headCell = new Cell(currRow, currCol);
     int currGameScore = 0;
+    screen->displayScore(currGameScore);
 
     
     int segmentsToAdd = 0;
@@ -134,12 +135,14 @@ int main(int argc, char *argv[])
 
               if((munchie->getRow() == currRow && munchie->getCol() == currCol)){
                   segmentsToAdd += ranInt;
+                  screen->displayScore(ranInt);
                 ranInt = (rand() % 9) + 1;
-                screen->displayScore(ranInt);
                 ranNum = '0' + ranInt;
                 munchie = screen->genRandomCell();
                 move(munchie->getRow(), munchie->getCol());
                 addch(ranNum);
+
+                
            }  
         }
         else
