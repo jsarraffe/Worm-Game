@@ -10,7 +10,7 @@
 
 
 const int SEC_DELAY = 0;
-const int USEC_DELAY = 800000;
+const int USEC_DELAY = 800000123;
 static char lastc = ' ';
 void die( void );
 char get_char( void );
@@ -38,6 +38,7 @@ char get_char( )
 //         if( c == LEFT || c == RIGHT || c == UP || c == DOWN ) 
          lastc = c;
      }
+     //return( lastc );
      return( lastc );
 }
 void die( void )

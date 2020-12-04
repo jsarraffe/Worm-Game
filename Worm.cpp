@@ -45,6 +45,7 @@ void Worm::Enqueue(Cell *cell)
     {
         _rear = (_rear + 1) % worm.size();
         worm.at(_rear) = cell;
+        //initliaze it
         if (_front == -1)
         {
             _front = 0;
@@ -53,7 +54,6 @@ void Worm::Enqueue(Cell *cell)
 }
 void Worm::Dequeue()
 {
-
     //nothing else to remove, list is empty
     if (_front == -1)
     {
@@ -64,10 +64,10 @@ void Worm::Dequeue()
         if (_front == _rear)
         {
             _front = _rear = -1;
+            //set the to false
         }
         else
         {
-            
             _front = (_front + 1) % worm.size();
         }
     }

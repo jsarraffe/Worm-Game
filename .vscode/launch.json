@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/game.x",
-            "args": ["9", "9"],
+            "args": ["6", "6"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [], 

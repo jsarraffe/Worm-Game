@@ -43,60 +43,46 @@ int main(int argc, char *argv[])
     auto headCell = new Cell(currRow, currCol);
     int currGameScore = 0;
 
-    // auto headCell1 = new Cell(currRow, currCol - 1);
-    // auto headCell2 = new Cell(currRow, currCol - 2);
-    // auto headCell3 = new Cell(currRow, currCol - 3);
-    // auto headCell4 = new Cell(currRow, currCol - 4);
-    // auto headCell5 = new Cell(currRow, currCol - 5);
-
+    
     int segmentsToAdd = 0;
     
 
     worm->Enqueue(headCell);
-    //worm->Enqueue(headCell1);
-    // worm->Enqueue(headCell2);
-    // worm->Enqueue(headCell3);
-    // worm->Enqueue(headCell4);
-    // worm->Enqueue(headCell5);
-
     screen->makeOccupied(headCell);
-    //screen->makeOccupied(headCell1);
-    // screen->makeOccupied(headCell2);
-    // screen->makeOccupied(headCell3);
-    // screen->makeOccupied(headCell4);
-    // screen->makeOccupied(headCell5);
 
     move(currRow, currCol);
     addch('@');
-    // move(currRow, currCol - 1);
-    // addch('o');
-    // move(currRow, currCol - 2);
-    // addch('o');
-    // move(currRow, currCol - 3);
-    // addch('o');
-    // move(currRow, currCol - 4);
-    // addch('o');
-    // move(currRow, currCol - 5);
-    // addch('o');
-
-   
 
         int ranInt = (rand() % 9) + 1;
         int ranNum = '0' + ranInt;
 
         auto munchie = screen->genRandomCell();
         move(munchie->getRow(), munchie->getCol());
-        screen->makeOccupied(munchie);
+        
         addch(ranNum);
-
-
-
+        
  refresh();
     while (isAlive)
     {    
+        std::string r = std::to_string(currRow);
+        std::string c = std::to_string(currCol);
+        std::string munchieRow = std::to_string(munchie->getRow());
+        std::string munchieCol = std::to_string(munchie->getCol());
+
+        screen->printFreePool();
+        refresh();
+        mvaddstr(6, 16,munchieRow.c_str());
+        refresh();
+        mvaddstr(7, 16,munchieCol.c_str());
+        refresh();
+        refresh();
+        mvaddstr(2, 16,r.c_str());
+        refresh();
+        mvaddstr(3, 16,c.c_str());
+        refresh();
+        refresh();
         switch (get_char())
         {
-
         case 'j':
             currRow++;
             break;
@@ -114,12 +100,8 @@ int main(int argc, char *argv[])
         default:
             continue;
         }
-        if (!screen->isFree(currRow, currCol))
+        if (screen->isFree(currRow, currCol))
         {
-           if((munchie->getRow() != currRow && munchie->getCol() != currCol)){
-               isAlive = false;
-           } else{
-
                 screen->displayScore(ranInt);
                 auto oldHead = worm->getRear();
 
@@ -130,14 +112,13 @@ int main(int argc, char *argv[])
                 screen->makeOccupied(headCell);
                 addch('@');
                 auto oldRear = worm->getFront();
+                screen->printFreePool();
 
             if (oldRear != headCell)
             {
                 //only move it its not just the @ sign
                 mvaddch(oldHead->getRow(), oldHead->getCol(), 'o');
             }
-
-
             if (segmentsToAdd > 0)
             {   
                 segmentsToAdd--;
@@ -146,62 +127,37 @@ int main(int argc, char *argv[])
             {
                 worm->Dequeue();
                 screen->makeFree(oldRear);
+                
                 move(oldRear->getRow(), oldRear->getCol());
                 addch(' ');
+                
             }
             segmentsToAdd += ranInt;
-            
-
-            screen->makeFree(munchie);
+              if((munchie->getRow() == currRow && munchie->getCol() == currCol)){
                 ranInt = (rand() % 9) + 1;
                 ranNum = '0' + ranInt;
                 munchie = screen->genRandomCell();
                 move(munchie->getRow(), munchie->getCol());
-                screen->makeOccupied(munchie);
                 addch(ranNum);
+               
+                std::string r = std::to_string(currRow);
+                std::string c = std::to_string(currCol);
+                std::string munchieRow = std::to_string(munchie->getRow());
+                std::string munchieCol = std::to_string(munchie->getCol());
            }  
         }
         else
         {
-            auto oldHead = worm->getRear();
-            headCell = new Cell(currRow, currCol);
-            move(currRow, currCol);
-            worm->Enqueue(headCell);
-            screen->makeOccupied(headCell);
-            addch('@');
-
-            auto oldRear = worm->getFront();
-
-            if (oldRear != headCell)
-            {
-                //only move it its not just the @ sign
-                mvaddch(oldHead->getRow(), oldHead->getCol(), 'o');
-            }
-            if (segmentsToAdd > 0)
-            {   
-                segmentsToAdd--;
-            }
-            else
-            {
-                worm->Dequeue();
-                screen->makeFree(oldRear);
-                move(oldRear->getRow(), oldRear->getCol());
-                addch(' ');
-            }
+          isAlive = false;
         }
         
         refresh();
     }
-    
     terminate();
-
     std::cout<<"The worm died since it ran into something!"<<std::endl;
     std::cout<<"Your final score: "<<screen->getGameScore()<<std::endl;
-    delete screen;
-
-     
+    delete screen;    
 }
-
 void startup(void)
 {
     initscr();   /* activate the curses */
@@ -218,5 +174,3 @@ void terminate(void)
     refresh();
     endwin();
 }
-
-

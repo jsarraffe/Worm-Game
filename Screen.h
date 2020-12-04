@@ -9,10 +9,12 @@
 #include <curses.h>
 #include "Cell.h"
 
+
 class Screen
 {
 public:
     Screen(int numRows, int numColumns);
+    
     void makeFree(Cell *cell);
 
     void makeOccupied(Cell *cell);
@@ -25,13 +27,23 @@ public:
 
     void displayScore(int munchSize);
 
+    int getLastIndex(){return lastIndex;}
+
     ~Screen();
+     std::vector<Cell *> freePool;
+
+
+     void printFreePool();
 
 private:
-    int numRows, numColumns;
+    
     std::vector<std::vector<int>> screen;
-    std::vector<Cell *> freePool;
+   
+
     int lastIndex = 0;
+
+    int numRows, numColumns;
+  
     int gameScore = 0;
 };
 #endif //SCREENEXAMPLE_SCREEN_H
