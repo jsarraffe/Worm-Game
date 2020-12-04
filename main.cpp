@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
         
         addch(ranNum);
         
+        
  refresh();
     while (isAlive)
     {    
@@ -94,15 +95,13 @@ int main(int argc, char *argv[])
             break;
         case 'k':
             currRow--;
-
             break;
-
         default:
             continue;
         }
         if (screen->isFree(currRow, currCol))
         {
-                screen->displayScore(ranInt);
+                
                 auto oldHead = worm->getRear();
 
 
@@ -130,20 +129,17 @@ int main(int argc, char *argv[])
                 
                 move(oldRear->getRow(), oldRear->getCol());
                 addch(' ');
-                
             }
-            segmentsToAdd += ranInt;
+            
+
               if((munchie->getRow() == currRow && munchie->getCol() == currCol)){
+                  segmentsToAdd += ranInt;
                 ranInt = (rand() % 9) + 1;
+                screen->displayScore(ranInt);
                 ranNum = '0' + ranInt;
                 munchie = screen->genRandomCell();
                 move(munchie->getRow(), munchie->getCol());
                 addch(ranNum);
-               
-                std::string r = std::to_string(currRow);
-                std::string c = std::to_string(currCol);
-                std::string munchieRow = std::to_string(munchie->getRow());
-                std::string munchieCol = std::to_string(munchie->getCol());
            }  
         }
         else
@@ -153,11 +149,16 @@ int main(int argc, char *argv[])
         
         refresh();
     }
+    
     terminate();
+
     std::cout<<"The worm died since it ran into something!"<<std::endl;
     std::cout<<"Your final score: "<<screen->getGameScore()<<std::endl;
-    delete screen;    
+    delete screen;
+
+     
 }
+
 void startup(void)
 {
     initscr();   /* activate the curses */
