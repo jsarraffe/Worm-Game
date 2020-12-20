@@ -5,18 +5,17 @@
 #ifndef SCREENEXAMPLE_CELL_H
 #define SCREENEXAMPLE_CELL_H
 
-class Cell{
+class Cell {
 public:
-   Cell(int rowValue, int colValue) : _rowValue(rowValue), _colValue(colValue) {}
+    Cell(int rowValue, int colValue): _rowValue(rowValue), _colValue(colValue){}
 
-   int getRow() { return _rowValue; }
+    int getRow() { return _rowValue; }
 
-   int getCol() { return _colValue; } // get the row value
-
-   ~Cell(){};
-
+    int getCol() { return _colValue; }
+    ~Cell(){};
+    
 private:
-   int _rowValue, _colValue;
-   bool isFree;
+    int _rowValue, _colValue;
+    bool isFree;
 };
 #endif //SCREENEXAMPLE_CELL_H

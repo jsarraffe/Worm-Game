@@ -10,7 +10,7 @@
 
 
 const int SEC_DELAY = 0;
-const int USEC_DELAY = 800000123;
+const int USEC_DELAY = 800000;
 static char lastc = ' ';
 void die( void );
 char get_char( void );

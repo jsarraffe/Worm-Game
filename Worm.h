@@ -12,8 +12,6 @@ class Worm
 {
 
 public:
-    //Constructor
-    //Remeber to initliaze the size to (row -1 * column -1)
     Worm(int size) :_front(-1), _rear(-1){worm.resize(size);}
 
     void printWorm();
@@ -22,6 +20,9 @@ public:
     void Enqueue(Cell *cell);
     void Dequeue();
     ~Worm(){};
+    bool isFull();
+
+    int size(){return worm.size();}
 
 private:
     int _front;

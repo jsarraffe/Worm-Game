@@ -10,11 +10,12 @@
 
 void Worm::printWorm()
 {
+    //for Debugging my worm
     int i = _front;
-    std::cout << "Current Circular Queue Status\n";
-    std::cout << "==============================\n";
+    std::cout << "Circular Queue \n";
     if(_rear == -1){
-        std::cout<<"Worm Empty"<<std::endl;
+        exit(1);
+        std::cout << "Your Gay"<<std::endl;
         return;
     }
 
@@ -22,30 +23,30 @@ void Worm::printWorm()
     
     while (i != _rear){
         i = (i + 1) % worm.size();
-        std::cout << "Space " << i << ": " << worm.at(i)->getRow() <<","<< worm.at(i)->getCol()<<std::endl;
+        std::cout << "Section " << i << ": " << worm.at(i)->getRow() <<","<< worm.at(i)->getCol()<<std::endl;
         if (i == _front)
         {
-            std::cout << "Head ";
+            std::cout << "front ";
         }
         if (i == _rear)
         {
-            std::cout << " TAIL " << std::endl;
+            std::cout << " rear " << std::endl;
         }
     } 
 }
 void Worm::Enqueue(Cell *cell)
 {
-    //is the queue FUll?
+    //adds to the rear of the queue
 
     if ((_rear + 1) % worm.size() == _front)
     {
-        std::cout << "the queue is full" << std::endl;
+        return;
     }
     else
     {
         _rear = (_rear + 1) % worm.size();
         worm.at(_rear) = cell;
-        //initliaze it
+        //initliaze front
         if (_front == -1)
         {
             _front = 0;
@@ -54,17 +55,17 @@ void Worm::Enqueue(Cell *cell)
 }
 void Worm::Dequeue()
 {
-    //nothing else to remove, list is empty
+    //removes from the front of the queue
     if (_front == -1)
     {
-        std::cout << "The queue is empty " << std::endl;
+        std::cout<<"Worm Empy"<<std::endl;
     }
     else
     {
         if (_front == _rear)
         {
             _front = _rear = -1;
-            //set the to false
+            //empty
         }
         else
         {
@@ -77,7 +78,7 @@ Cell *Worm::getFront()
 {
     if (_rear == -1)
     {
-        std::cout << "Queue is empty!" << std::endl;
+        std::cout<<"Worm empty"<<std::endl;
     }
     else
     {
@@ -87,11 +88,18 @@ Cell *Worm::getFront()
 Cell *Worm::getRear()
 {
     if (_rear == -1)
-    {
-        std::cout << "Queue is empty!" << std::endl;
+    {   
+        std::cout<<"Worm empty"<<std::endl;
     }
     else
     {
         return worm.at(_rear);
     }
+}
+
+bool Worm::isFull(){
+    if(_front == - 1 && _rear == -1){
+        exit(1);
+    }
+
 }

@@ -27,23 +27,21 @@ public:
 
     void displayScore(int munchSize);
 
+    //function was used for debugging
     int getLastIndex(){return lastIndex;}
 
     ~Screen();
-     std::vector<Cell *> freePool;
-
-
+     
      void printFreePool();
 
 private:
     
-    std::vector<std::vector<int>> screen;
+    std::vector<std::vector<int> > screen;
+    std::vector<Cell *> freePool;
    
 
     int lastIndex = 0;
-
     int numRows, numColumns;
-  
     int gameScore = 0;
 };
 #endif //SCREENEXAMPLE_SCREEN_H
