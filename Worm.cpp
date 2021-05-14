@@ -15,7 +15,6 @@ void Worm::printWorm()
     std::cout << "Circular Queue \n";
     if(_rear == -1){
         exit(1);
-        std::cout << "Your Gay"<<std::endl;
         return;
     }
 
